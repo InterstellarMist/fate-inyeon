@@ -1,10 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
+  const [message, setMessage] = useState("");
+
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/hello`)
+      .then((response) => response.json())
+      .then((data) => setMessage(JSON.stringify(data)))
+      .catch((error) => console.error("Error:", error));
+  }, []);
 
   return (
     <>
@@ -25,11 +33,9 @@ function App() {
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <p className="read-the-docs">{message}</p>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
