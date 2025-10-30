@@ -5,6 +5,7 @@ import mongodbConnector from "@/plugins/mongodb-connector.js";
 import { mongoDBroutes } from "@/routes/mongodb.js";
 import { registerJwt } from "@/plugins/jwt.js";
 import { accountRoutes } from "@/routes/account.js";
+import { interactionsRoutes } from "@/routes/interactions.js";
 
 export async function buildApp(): Promise<FastifyInstance> {
   const fastify = Fastify({
@@ -18,6 +19,7 @@ export async function buildApp(): Promise<FastifyInstance> {
 
   // Register routes
   await fastify.register(accountRoutes);
+  await fastify.register(interactionsRoutes);
   await fastify.register(registerExampleRoutes);
   await fastify.register(mongoDBroutes);
 

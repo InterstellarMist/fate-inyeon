@@ -1,5 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&display=swap');
+@import "tailwindcss";
+
+@plugin './hero.ts';
+@source '../node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}';
+@custom-variant dark (&:is(.dark *));
+
+
+@theme {
+  --font-inter: 'Inter', sans-serif;
+  --font-nanum-gothic: 'Nanum Gothic', sans-serif;
+  --orange-gradient: linear-gradient(to bottom, rgba(228, 112, 112, 1) 0%,rgba(220, 142, 98, 1) 100%);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  flex: 1;
+}
+
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Inter", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -15,7 +36,7 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #484b7c;
   text-decoration: inherit;
 }
 a:hover {
@@ -24,34 +45,15 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
   min-width: 320px;
-  min-height: 100vh;
+  height: 100vh;
+  width: 100vw;
+  background: var(--orange-gradient);
 }
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
-}
-
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:hover {
-  border-color: #646cff;
-}
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
 }
 
 @media (prefers-color-scheme: light) {
@@ -65,4 +67,19 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+}
+
+.bg-orange-gradient {
+  background: var(--orange-gradient);
+}
+
+.text-orange-gradient {
+  background: var(--orange-gradient);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.rainbow-gradient {
+  background: linear-gradient(135deg, rgba(228, 40, 25, 1) 0%, rgba(220, 141, 96, 1) 33%, rgba(220, 162, 50, 1) 65%, rgba(169, 28, 220, 1) 99%);
 }

@@ -8,7 +8,7 @@ export async function interactionsRoutes(fastify: FastifyInstance) {
   const matchesCollection = db.collection<MatchDocument>("matches");
 
   // Get potential matches
-  // TODO: age preferences
+  // TODO: age preferences, randomize matches and like probabilities, filter out likes and dislikes
   fastify.get(
     "/api/candidates",
     { onRequest: [fastify.authenticate] },
@@ -21,7 +21,13 @@ export async function interactionsRoutes(fastify: FastifyInstance) {
         return reply.status(404).send({ error: "Profile not found" });
       const matches = await profiles
         .find({
-          accountId: { $ne: new ObjectId(accountId) },
+          accountId: {
+            $and: [
+              { $ne: new ObjectId(accountId) },
+              { $nin: profile.likes || [] },
+              { $nin: profile.dislikes || [] },
+            ],
+          },
           preferences: { $elemMatch: { gender: profile.gender } },
         })
         .toArray();
@@ -48,7 +54,7 @@ export async function interactionsRoutes(fastify: FastifyInstance) {
 
   // Like a candidate
   fastify.post(
-    "/api/candidates/:candidateId/like",
+    "/api/candidates/like/:candidateId",
     { onRequest: [fastify.authenticate] },
     async (request, reply) => {
       const accountId = (request.user as { accountId: string }).accountId;
