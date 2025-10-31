@@ -17,7 +17,7 @@ export interface Profile {
   gender: string;
   location: string;
   bio: string;
-  profilePicture: string;
+  picture: string;
   birthday: string;
   preferences: Preferences;
 }

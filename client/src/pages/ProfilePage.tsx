@@ -1,13 +1,22 @@
 import { Button, Form, Input, Textarea, DateInput, Chip } from "@heroui/react";
 import { ProfileCard } from "../components/ProfileCard";
-import { ImageIcon, Mars, Save, Venus, VenusAndMars } from "lucide-react";
+import {
+  ImageIcon,
+  LogOut,
+  Mars,
+  Save,
+  Venus,
+  VenusAndMars,
+} from "lucide-react";
 import { CalendarDate } from "@internationalized/date";
+import { useTopBarTab } from "../contexts/TopBarTabContext";
+import { useAuth } from "../contexts/AuthContext";
 
 const profile = {
   name: "Jeonghan (정한)",
   age: 30,
   location: "Seoul, South Korea",
-  profilePicture: "/profiles/jeonghan-seventeen.jpg",
+  picture: "/profiles/jeonghan-seventeen.jpg",
   bio: "I'm a software engineer",
   birthday: "1990-01-01",
   preferences: { gender: "female", age: [28, 35] },
@@ -76,6 +85,9 @@ const PreferencesChips = ({
 };
 
 export const ProfilePage = () => {
+  const { selectedTab } = useTopBarTab();
+  const { logout, token } = useAuth();
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.target as HTMLFormElement);
@@ -83,10 +95,47 @@ export const ProfilePage = () => {
     console.log(data);
   };
 
+  const handleLogout = () => {
+    console.log(token);
+    logout();
+    console.log(token);
+    // navigate("/login");
+  };
+
+  if (selectedTab === "profile") {
+    return (
+      <div className="grid grid-cols-1 justify-items-center h-full w-full pt-4 md:pb-22 pb-28 px-4">
+        <ProfileCard
+          picture={profile.picture}
+          className="md:max-h-[calc(100dvh-300px)] max-h-[calc(100dvh-300px)] min-h-0 aspect-2/3 max-w-full"
+          name={profile.name}
+          age={profile.age}
+          location={profile.location}
+          bio={profile.bio}
+          birthday={profile.birthday}
+          preferences={profile.preferences}
+          variant="default"
+          isMain
+        />
+        <Button
+          type="button"
+          size="md"
+          color="danger"
+          className="text-white h-10 shrink-0"
+          startContent={<LogOut color="white" />}
+          onPress={handleLogout}
+          radius="full"
+        >
+          Logout
+        </Button>
+      </div>
+    );
+  }
+
   return (
     <div className="md:grid md:grid-cols-2 md:items-start flex flex-col items-center h-full w-full pt-4 pb-20 px-4 gap-8 overflow-y-auto md:overflow-y-hidden">
       <ProfileCard
-        profilePicture={profile.profilePicture}
+        picture={profile.picture}
         className="min-h-0 max-h-[300px] md:max-h-[calc(100dvh-240px)] w-fit aspect-2/3 md:justify-self-end shrink-0"
         name={profile.name}
         age={profile.age}

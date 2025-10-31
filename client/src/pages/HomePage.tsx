@@ -16,7 +16,7 @@ export const HomePage = () => {
       </div>
       <div className="relative md:max-h-[calc(100dvh-270px)] min-h-0 max-h-[calc(100dvh-300px)] aspect-2/3 justify-self-center">
         <ProfileCard
-          profilePicture={images[2]}
+          picture={images[2]}
           className="absolute top-0 left-0 z-10"
           rotate="right"
           name="Sinb (신비)"
@@ -27,7 +27,7 @@ export const HomePage = () => {
           preferences={{ gender: "female", age: [25, 30] }}
         />
         <ProfileCard
-          profilePicture={images[1]}
+          picture={images[1]}
           className="absolute top-0 left-0 z-20"
           rotate="left"
           name="Umji (엄지)"
@@ -38,7 +38,7 @@ export const HomePage = () => {
           preferences={{ gender: "female", age: [25, 30] }}
         />
         <ProfileCard
-          profilePicture={images[0]}
+          picture={images[0]}
           className="relative top-0 left-0 z-30"
           rotate="none"
           isMain

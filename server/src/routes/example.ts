@@ -1,5 +1,6 @@
 import { FastifyInstance } from "fastify";
 
+// TODO: remove example routes (For reference only)
 export async function registerExampleRoutes(fastify: FastifyInstance) {
   // Example route demonstrating Fastify's TypeScript support
   fastify.get<{

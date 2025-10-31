@@ -12,7 +12,7 @@ interface Profile {
   age: number;
   location: string;
   bio?: string;
-  profilePicture: string;
+  picture: string;
   birthday?: string;
   preferences?: Preferences;
 }
@@ -25,7 +25,7 @@ interface ImageProps {
 }
 
 export const ProfileCard = ({
-  profilePicture,
+  picture,
   age,
   className,
   rotate = "none",
@@ -51,7 +51,7 @@ export const ProfileCard = ({
       )}
     >
       <Image
-        src={profilePicture}
+        src={picture}
         alt={name}
         className={cn(
           variant === "default"

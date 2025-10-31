@@ -49,7 +49,7 @@ export async function accountRoutes(fastify: FastifyInstance) {
 
       const token = fastify.jwt.sign(
         { accountId: account._id },
-        { expiresIn: "1h" }
+        { expiresIn: "12h" }
       );
       if (!token)
         return reply.status(500).send({ error: "Failed to create token" });
@@ -69,7 +69,7 @@ export async function accountRoutes(fastify: FastifyInstance) {
         gender,
         location,
         bio,
-        profilePicture,
+        picture,
         birthday,
         preferences,
       } = request.body;
@@ -87,7 +87,7 @@ export async function accountRoutes(fastify: FastifyInstance) {
         gender,
         location,
         bio,
-        profilePicture,
+        picture,
         birthday,
         preferences,
       });
