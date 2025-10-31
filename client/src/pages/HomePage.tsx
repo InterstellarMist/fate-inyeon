@@ -7,42 +7,7 @@ import { useAuth } from "../contexts/AuthContext";
 import useSWR from "swr";
 import { addToast } from "@heroui/react";
 
-// Mock profiles for development - replace with actual API data
-const mockProfiles: (Profile & { accountId: string })[] = [
-  {
-    accountId: "1",
-    name: "Eunha (은하)",
-    location: "Seoul, South Korea",
-    bio: "I'm a software engineer passionate about building beautiful and functional applications. Love hiking and photography in my free time.",
-    birthday: "1990-01-01",
-    picture: "/profiles/eunha-viviz.jpg",
-    preferences: { gender: "female", age: [25, 30] },
-    age: 25,
-    gender: "female",
-  },
-  {
-    accountId: "2",
-    name: "Umji (엄지)",
-    location: "Seoul, South Korea",
-    bio: "I'm a software engineer",
-    birthday: "1990-01-01",
-    picture: "/profiles/umij-viviz.jpeg",
-    preferences: { gender: "female", age: [25, 30] },
-    age: 25,
-    gender: "female",
-  },
-  {
-    accountId: "3",
-    name: "Sinb (신비)",
-    location: "Seoul, South Korea",
-    bio: "I'm a software engineer",
-    birthday: "1990-01-01",
-    picture: "/profiles/sinb-viviz.jpg",
-    preferences: { gender: "female", age: [25, 30] },
-    age: 25,
-    gender: "female",
-  },
-];
+// Mock profiles removed - using actual API data via useSWR
 
 export const HomePage = () => {
   const { token } = useAuth();

@@ -9,6 +9,7 @@ const TopBarTabContext = createContext<TopBarTabContextType | undefined>(
   undefined
 );
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTopBarTab = () => {
   const context = useContext(TopBarTabContext);
   if (!context) {

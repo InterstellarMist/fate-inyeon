@@ -4,7 +4,6 @@ import type { MatchDocument, Profile } from "../types/apiTypes";
 import useSWR from "swr";
 import { getTalkJSToken } from "../lib/dataFetch";
 import { Session, Chatbox } from "@talkjs/react";
-// @ts-ignore - TalkJS types may not be fully exported
 import Talk from "talkjs";
 
 interface MatchesData {

@@ -100,7 +100,7 @@ export const SignupPage = () => {
         setError("No token received from server");
         setIsLoading(false);
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
       setIsLoading(false);
     }
