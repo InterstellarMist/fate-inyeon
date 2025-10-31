@@ -25,7 +25,7 @@ export async function accountRoutes(fastify: FastifyInstance) {
       if (!newAccount)
         return reply.status(500).send({ error: "Failed to create user" });
       const token = fastify.jwt.sign(
-        { accountId: newAccount.insertedId },
+        { accountId: newAccount.insertedId.toString() },
         { expiresIn: "1h" }
       );
       if (!token)
@@ -48,7 +48,7 @@ export async function accountRoutes(fastify: FastifyInstance) {
         return reply.status(401).send({ error: "Invalid credentials" });
 
       const token = fastify.jwt.sign(
-        { accountId: account._id },
+        { accountId: account._id.toString() },
         { expiresIn: "12h" }
       );
       if (!token)

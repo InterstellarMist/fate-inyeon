@@ -90,7 +90,29 @@ export const LoginPage = () => {
 
       if (data.token) {
         login(data.token);
-        navigate("/");
+
+        // Check if user has a profile
+        try {
+          const profileResponse = await fetch(
+            `${API_URL}/api/users/my-profile`,
+            {
+              headers: {
+                Authorization: `Bearer ${data.token}`,
+              },
+            }
+          );
+
+          if (!profileResponse.ok) {
+            // No profile exists, redirect to create-profile
+            navigate("/create-profile");
+          } else {
+            // Profile exists, redirect to home
+            navigate("/");
+          }
+        } catch {
+          // If profile check fails, redirect to create-profile to be safe
+          navigate("/create-profile");
+        }
       } else {
         setError("No token received from server");
         setIsLoading(false);

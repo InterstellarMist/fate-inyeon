@@ -52,7 +52,7 @@ function AppContent() {
           <Route
             path="/*"
             element={
-              <ProtectedRoute>
+              <ProtectedRoute requireProfile={true}>
                 <TopBarTabProvider>
                   <div className="flex flex-col h-full">
                     <TopBar />
