@@ -89,3 +89,24 @@ export const dislikeCandidate = async (
 
   return response.json();
 };
+
+// Get TalkJS token
+export const getTalkJSToken = async (
+  token: string | null
+): Promise<{ token: string }> => {
+  if (!token) {
+    throw new Error("No authentication token available");
+  }
+
+  const response = await fetch(`${API_URL}/api/talkjs/token`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return response.json();
+};

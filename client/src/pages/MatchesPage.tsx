@@ -32,7 +32,7 @@ export const MatchesPage = () => {
   return (
     <div className="md:w-[768px] w-full grid min-[550px]:grid-cols-3 grid-cols-2 gap-4 px-8 pt-4 pb-30 overflow-y-auto">
       {profilesToShow.length === 0 && (
-        <p className="text-center text-white place-self-center text-2xl font-bold md:col-start-2 md:col-span-1 col-span-2">
+        <p className="text-center text-white place-self-center text-2xl font-bold min-[550px]:col-start-2 min-[550px]:col-span-1 col-span-2">
           Swipe to find your matches! 💓💓💓
         </p>
       )}

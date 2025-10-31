@@ -4,6 +4,7 @@ import { cn, Tab, Tabs } from "@heroui/react";
 import { CircleUserRound, Heart, House, MessageCircle } from "lucide-react";
 import { MatchesPage } from "../pages/MatchesPage";
 import { ProfilePage } from "../pages/ProfilePage";
+import { MessagesPage } from "../pages/MessagesPage";
 
 export const NavBar = () => {
   const { pathname } = useLocation();
@@ -17,7 +18,7 @@ export const NavBar = () => {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/matches" element={<MatchesPage />} />
-          <Route path="/messages" element={<HomePage />} />
+          <Route path="/messages" element={<MessagesPage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
       </div>
