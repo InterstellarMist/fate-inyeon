@@ -7,6 +7,7 @@ import {
   DatePicker,
   Select,
   SelectItem,
+  addToast,
 } from "@heroui/react";
 import { ProfileCard } from "../components/ProfileCard";
 import {
@@ -54,7 +55,7 @@ const DateInputStyles = {
   selectorIcon: "text-default-800",
 };
 
-const GenderSelection = ({
+export const GenderSelection = ({
   gender,
   setGender,
 }: {
@@ -67,6 +68,7 @@ const GenderSelection = ({
       <div className="flex flex-wrap gap-2">
         <Chip
           as="button"
+          type="button"
           color={gender === "Male" ? "primary" : "default"}
           variant={gender === "Male" ? "shadow" : "flat"}
           startContent={<Mars color="white" size={16} className="ml-1" />}
@@ -77,6 +79,7 @@ const GenderSelection = ({
         </Chip>
         <Chip
           as="button"
+          type="button"
           color={gender === "Female" ? "danger" : "default"}
           variant={gender === "Female" ? "shadow" : "flat"}
           startContent={<Venus color="white" size={16} className="ml-1" />}
@@ -87,6 +90,7 @@ const GenderSelection = ({
         </Chip>
         <Chip
           as="button"
+          type="button"
           color={gender === "Other" ? "success" : "default"}
           variant={gender === "Other" ? "shadow" : "flat"}
           startContent={
@@ -102,7 +106,7 @@ const GenderSelection = ({
   );
 };
 
-const AgeRangeSelection = ({
+export const AgeRangeSelection = ({
   age,
   setAge,
 }: {
@@ -127,6 +131,7 @@ const AgeRangeSelection = ({
             <Chip
               key={bracket.label}
               as="button"
+              type="button"
               color={isSelected ? "secondary" : "default"}
               variant={isSelected ? "shadow" : "flat"}
               className="cursor-pointer hover:bg-white/20 transition-colors"
@@ -182,34 +187,47 @@ export const ProfilePage = () => {
       preferences: { gender: prefGender, age: prefAge },
     };
 
-    const response = await fetch(`${API_URL}/api/users/edit-profile`, {
-      method: "PUT",
-      body: JSON.stringify(profileData),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    try {
+      const response = await fetch(`${API_URL}/api/users/edit-profile`, {
+        method: "PUT",
+        body: JSON.stringify(profileData),
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-    if (!response.ok) {
-      throw new Error("Failed to update profile");
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || "Failed to update profile");
+      }
+
+      const updatedData = await response.json();
+      console.log("Updated profile data:", updatedData);
+
+      addToast({
+        title: "Success",
+        description: "Profile updated successfully!",
+        color: "success",
+      });
+    } catch (error) {
+      addToast({
+        title: "Error",
+        description:
+          error instanceof Error ? error.message : "Failed to update profile",
+        color: "danger",
+      });
     }
-    const updatedData = await response.json();
-    console.log("Updated profile data:", updatedData);
   };
 
   if (selectedTab === "profile") {
     return (
       <div className="grid grid-cols-1 justify-items-center h-full w-full pt-4 md:pb-22 pb-28 px-4">
         <ProfileCard
-          picture={data.picture}
+          profile={data}
           className="md:max-h-[calc(100dvh-300px)] max-h-[calc(100dvh-300px)] min-h-0 aspect-2/3 max-w-full"
-          name={data.name}
-          location={data.location}
-          bio={data.bio}
-          birthday={data.birthday}
-          preferences={data.preferences}
           variant="default"
+          disabled
           isMain
         />
         <Button
@@ -230,14 +248,17 @@ export const ProfilePage = () => {
   return (
     <div className="md:grid md:grid-cols-2 md:items-start flex flex-col items-center h-full w-full pt-4 pb-20 px-4 gap-8 overflow-y-auto md:overflow-y-hidden">
       <ProfileCard
-        picture={data.picture}
+        profile={{
+          picture: data.picture,
+          name: name,
+          location: location,
+          bio: bio,
+          birthday: birthday.toString(),
+          preferences: { gender: prefGender, age: prefAge },
+        }}
         className="min-h-0 max-h-[300px] md:max-h-[calc(100dvh-240px)] w-fit aspect-2/3 md:justify-self-end shrink-0"
-        name={name}
-        location={location}
-        bio={bio}
-        birthday={birthday.toString()}
-        preferences={{ gender: prefGender, age: prefAge }}
         variant="small"
+        disabled
         isMain
       />
       <Form

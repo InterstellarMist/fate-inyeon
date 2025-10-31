@@ -4,6 +4,7 @@ import { Button, Card, CardBody, Input } from "@heroui/react";
 import { useAuth } from "../contexts/AuthContext";
 import { WebsiteLogo } from "../components/TopBar";
 
+// TODO:clean
 export const SignupForm = ({
   handleSubmit,
   email,
@@ -94,7 +95,7 @@ export const SignupPage = () => {
 
       if (data.token) {
         login(data.token);
-        navigate("/");
+        navigate("/create-profile");
       } else {
         setError("No token received from server");
         setIsLoading(false);

@@ -1,5 +1,5 @@
 import React from "react";
-import { HeroUIProvider } from "@heroui/react";
+import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import { useHref, useNavigate, Routes, Route } from "react-router";
 import { SWRConfig } from "swr";
 import { NavBar } from "./components/NavBar";
@@ -8,6 +8,7 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import { TopBarTabProvider } from "./contexts/TopBarTabContext";
 import { LoginPage } from "./pages/LoginPage";
 import { SignupPage } from "./pages/SignupPage";
+import { CreateProfilePage } from "./pages/CreateProfilePage";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 import { createAuthFetcher } from "./lib/dataFetch";
 
@@ -36,9 +37,18 @@ function AppContent() {
         navigate={navigate}
         useHref={useHref}
       >
+        <ToastProvider placement="top-right" />
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route
+            path="/create-profile"
+            element={
+              <ProtectedRoute>
+                <CreateProfilePage />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/*"
             element={

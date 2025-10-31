@@ -25,3 +25,58 @@ export const createAuthFetcher = (getToken: () => string | null) => {
     return response.json();
   };
 };
+
+// Like a candidate
+export const likeCandidate = async (
+  candidateId: string,
+  token: string | null
+): Promise<{
+  message: string;
+  match?: { profile1: string; profile2: string };
+}> => {
+  if (!token) {
+    throw new Error("No authentication token available");
+  }
+
+  const response = await fetch(
+    `${API_URL}/api/candidates/like/${candidateId}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return response.json();
+};
+
+// Dislike a candidate
+export const dislikeCandidate = async (
+  candidateId: string,
+  token: string | null
+): Promise<{ message: string }> => {
+  if (!token) {
+    throw new Error("No authentication token available");
+  }
+
+  const response = await fetch(
+    `${API_URL}/api/candidates/dislike/${candidateId}`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(`HTTP error! status: ${response.status}`);
+  }
+
+  return response.json();
+};

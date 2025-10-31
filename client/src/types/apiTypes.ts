@@ -14,3 +14,8 @@ export interface Profile {
   birthday: string;
   preferences: Preferences;
 }
+
+export interface MatchDocument {
+  _id: string;
+  profiles: string[];
+}

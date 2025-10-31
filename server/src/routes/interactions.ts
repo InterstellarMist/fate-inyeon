@@ -42,17 +42,66 @@ export async function interactionsRoutes(fastify: FastifyInstance) {
     "/api/matches",
     { onRequest: [fastify.authenticate] },
     async (request, reply) => {
-      const accountId = (request.user as { accountId: string }).accountId;
+      const accountId = new ObjectId(
+        (request.user as { accountId: string }).accountId
+      );
+      // First query: Get matches
       const matches = await matchesCollection
-        .find({ profiles: { $elemMatch: { $eq: new ObjectId(accountId) } } })
+        .find({ profiles: { $elemMatch: { $eq: accountId } } })
         .toArray();
-      if (!matches)
+      if (!matches || matches.length === 0)
         return reply.status(404).send({ error: "No matches found" });
-      return reply.status(200).send(matches);
+
+      // Second query: Get other profile IDs from matches (exclude current user)
+      const otherProfileIds = matches.flatMap((match) =>
+        match.profiles.filter((profileId) => !profileId.equals(accountId))
+      );
+      console.log("Other profile IDs:", otherProfileIds);
+
+      // Fetch profiles for the other profile IDs
+      const profileList = await profiles
+        .find({
+          accountId: { $in: otherProfileIds },
+        })
+        .project({
+          likes: 0,
+          dislikes: 0,
+        })
+        .toArray();
+
+      return reply.status(200).send({ matches, profiles: profileList });
     }
   );
 
-  // TODO: Add like probability
+  // Get likes
+  fastify.get(
+    "/api/likes",
+    { onRequest: [fastify.authenticate] },
+    async (request, reply) => {
+      const accountId = new ObjectId(
+        (request.user as { accountId: string }).accountId
+      );
+      const profile = await profiles.findOne({
+        accountId: accountId,
+      });
+
+      if (!profile)
+        return reply.status(404).send({ error: "Profile not found" });
+
+      const likes = await profiles
+        .find({
+          accountId: { $in: profile.likes ?? [] },
+        })
+        .project({
+          likes: 0,
+          dislikes: 0,
+        })
+        .toArray();
+
+      return reply.status(200).send(likes);
+    }
+  );
+
   // Like a candidate
   fastify.post<{ Params: { candidateId: string } }>(
     "/api/candidates/like/:candidateId",
@@ -85,9 +134,22 @@ export async function interactionsRoutes(fastify: FastifyInstance) {
       });
       if (!candidate)
         return reply.status(404).send({ error: "Candidate not found" });
+
+      candidate.likes ??= [];
+      // Demo: simulate match with 50% probability
+      const random = Math.random();
+      if (random < 0.5) {
+        console.log("Simulating match with 50% probability");
+        candidate.likes.push(accountId);
+        await profiles.updateOne(
+          { accountId: candidateId },
+          { $push: { likes: accountId } }
+        );
+      }
       console.log(candidate.likes, accountId);
-      console.log(candidate.likes?.some((id) => id.equals(accountId)));
-      if (candidate.likes?.some((id) => id.equals(accountId))) {
+      console.log(candidate.likes.some((id) => id.equals(accountId)));
+
+      if (candidate.likes.some((id) => id.equals(accountId))) {
         await matchesCollection.insertOne({
           profiles: [accountId, candidateId],
         });
