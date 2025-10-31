@@ -25,6 +25,7 @@ import useSWR from "swr";
 import type { Profile } from "../types/apiTypes";
 import { useEffect, useState } from "react";
 import { calculateAge } from "../lib/utils";
+import { uploadImageToImgBB } from "../lib/imageUpload";
 
 const API_URL = import.meta.env.VITE_API_URL || "";
 
@@ -157,8 +158,10 @@ export const ProfilePage = () => {
   const [location, setLocation] = useState("");
   const [bio, setBio] = useState("");
   const [birthday, setBirthday] = useState(new CalendarDate(1990, 1, 1));
+  const [picture, setPicture] = useState("");
   const [prefGender, setPrefGender] = useState("");
   const [prefAge, setPrefAge] = useState<[number, number]>([28, 35]);
+  const [uploadingImage, setUploadingImage] = useState(false);
 
   useEffect(() => {
     setName(data?.name || "");
@@ -166,6 +169,7 @@ export const ProfilePage = () => {
     setLocation(data?.location || "");
     setBio(data?.bio || "");
     setBirthday(parseDate(data?.birthday || "1990-01-01"));
+    setPicture(data?.picture || "");
     setPrefGender(data?.preferences.gender || "");
     setPrefAge(data?.preferences.age || [28, 35]);
   }, [data]);
@@ -184,6 +188,7 @@ export const ProfilePage = () => {
       location: location,
       bio: bio,
       birthday: birthday.toString(),
+      picture: picture,
       preferences: { gender: prefGender, age: prefAge },
     };
 
@@ -220,6 +225,51 @@ export const ProfilePage = () => {
     }
   };
 
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    // Basic validation
+    if (!file.type.startsWith("image/")) {
+      addToast({
+        title: "Error",
+        description: "Please select a valid image file",
+        color: "danger",
+      });
+      return;
+    }
+
+    // Check file size (5MB limit)
+    if (file.size > 5 * 1024 * 1024) {
+      addToast({
+        title: "Error",
+        description: "Image must be less than 5MB",
+        color: "danger",
+      });
+      return;
+    }
+
+    setUploadingImage(true);
+    try {
+      const imageUrl = await uploadImageToImgBB(file);
+      setPicture(imageUrl);
+      addToast({
+        title: "Success",
+        description: "Image uploaded successfully!",
+        color: "success",
+      });
+    } catch (error) {
+      addToast({
+        title: "Error",
+        description:
+          error instanceof Error ? error.message : "Failed to upload image",
+        color: "danger",
+      });
+    } finally {
+      setUploadingImage(false);
+    }
+  };
+
   if (selectedTab === "profile") {
     return (
       <div className="grid grid-cols-1 justify-items-center h-full w-full pt-4 md:pb-22 pb-28 px-4">
@@ -249,7 +299,7 @@ export const ProfilePage = () => {
     <div className="md:grid md:grid-cols-2 md:items-start flex flex-col items-center h-full w-full pt-4 pb-20 px-4 gap-8 overflow-y-auto md:overflow-y-hidden">
       <ProfileCard
         profile={{
-          picture: data.picture,
+          picture: picture,
           name: name,
           location: location,
           bio: bio,
@@ -329,17 +379,32 @@ export const ProfilePage = () => {
         <GenderSelection gender={prefGender} setGender={setPrefGender} />
         <AgeRangeSelection age={prefAge} setAge={setPrefAge} />
 
-        <Button
-          type="button"
-          size="sm"
-          color="primary"
-          variant="solid"
-          className="shrink-0"
-          startContent={<ImageIcon size={20} />}
-          radius="full"
-        >
-          Change Profile Picture
-        </Button>
+        <div className="flex flex-col gap-2">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageUpload}
+            className="hidden"
+            id="profile-picture-upload-edit"
+            disabled={uploadingImage}
+          />
+          <Button
+            type="button"
+            size="sm"
+            color="primary"
+            variant="solid"
+            className="shrink-0"
+            startContent={<ImageIcon size={20} />}
+            radius="full"
+            onClick={() =>
+              document.getElementById("profile-picture-upload-edit")?.click()
+            }
+            isLoading={uploadingImage}
+            disabled={uploadingImage}
+          >
+            {uploadingImage ? "Uploading..." : "Change Profile Picture"}
+          </Button>
+        </div>
         <Button
           type="submit"
           size="sm"

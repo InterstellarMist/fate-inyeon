@@ -19,6 +19,15 @@ export const createAuthFetcher = (getToken: () => string | null) => {
     });
 
     if (!response.ok) {
+      // Handle 404 for matches and likes as empty results
+      if (response.status === 404) {
+        if (endpoint === "/api/matches") {
+          return { matches: [], profiles: [] };
+        }
+        if (endpoint === "/api/likes") {
+          return [];
+        }
+      }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
