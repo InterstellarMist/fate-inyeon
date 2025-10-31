@@ -1,5 +1,7 @@
 import { EyeOff, Heart, Redo, Undo } from "lucide-react";
 import { ProfileCard } from "../components/ProfileCard";
+import useSWR from "swr";
+import type { Profile } from "../types/apiTypes";
 
 const images = [
   "/profiles/eunha-viviz.jpg",
@@ -8,6 +10,14 @@ const images = [
 ];
 
 export const HomePage = () => {
+  const { data, error, isLoading } = useSWR<Profile[]>("/api/users/my-profile");
+
+  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (!data) return <div>No data</div>;
+
+  console.log(data);
+
   return (
     <div className="grid md:grid-cols-[auto_max-content_auto] grid-cols-1 items-center gap-16 h-full w-full md:pt-4 md:pb-20 pt-4 px-16 pb-20">
       <div className="hidden md:flex flex-col items-center justify-self-end">
@@ -20,7 +30,6 @@ export const HomePage = () => {
           className="absolute top-0 left-0 z-10"
           rotate="right"
           name="Sinb (신비)"
-          age={27}
           location="Seoul, South Korea"
           bio="I'm a software engineer"
           birthday="1990-01-01"
@@ -31,7 +40,6 @@ export const HomePage = () => {
           className="absolute top-0 left-0 z-20"
           rotate="left"
           name="Umji (엄지)"
-          age={27}
           location="Seoul, South Korea"
           bio="I'm a software engineer"
           birthday="1990-01-01"
@@ -43,7 +51,6 @@ export const HomePage = () => {
           rotate="none"
           isMain
           name="Eunha (은하)"
-          age={28}
           location="Seoul, South Korea"
           bio="I'm a software engineer"
           birthday="1990-01-01"

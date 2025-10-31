@@ -1,4 +1,13 @@
-import { Button, Form, Input, Textarea, DateInput, Chip } from "@heroui/react";
+import {
+  Button,
+  Form,
+  Input,
+  Textarea,
+  Chip,
+  DatePicker,
+  Select,
+  SelectItem,
+} from "@heroui/react";
 import { ProfileCard } from "../components/ProfileCard";
 import {
   ImageIcon,
@@ -8,28 +17,31 @@ import {
   Venus,
   VenusAndMars,
 } from "lucide-react";
-import { CalendarDate } from "@internationalized/date";
+import { CalendarDate, parseDate } from "@internationalized/date";
 import { useTopBarTab } from "../contexts/TopBarTabContext";
 import { useAuth } from "../contexts/AuthContext";
+import useSWR from "swr";
+import type { Profile } from "../types/apiTypes";
+import { useEffect, useState } from "react";
+import { calculateAge } from "../lib/utils";
 
-const profile = {
-  name: "Jeonghan (정한)",
-  age: 30,
-  location: "Seoul, South Korea",
-  picture: "/profiles/jeonghan-seventeen.jpg",
-  bio: "I'm a software engineer",
-  birthday: "1990-01-01",
-  preferences: { gender: "female", age: [28, 35] },
+const API_URL = import.meta.env.VITE_API_URL || "";
+
+const SelectStyles = {
+  label:
+    "font-bold !text-white group-data-[focus=true]:!text-white group-data-[filled=true]:!text-white group-data-[invalid=true]:!text-white",
+  trigger:
+    "bg-white/20 border-2 border-white data-[hover=true]:bg-white/30 data-[focus=true]:bg-white/30",
+  value: "text-white group-data-[has-value=true]:text-default-800 font-medium",
 };
 
 const InputStyles = {
-  // Force label color to white across all states; increase specificity with important and data-state selectors
   label:
     "font-bold !text-white group-data-[focus=true]:!text-white group-data-[filled=true]:!text-white group-data-[invalid=true]:!text-white",
   inputWrapper:
     "bg-white/20 border-2 border-white data-[hover=true]:bg-white/30 focus-within:bg-white/30",
   input:
-    "text-white placeholder:text-white/70 group-data-[has-value=true]:text-[#3f3f3f]",
+    "text-white placeholder:text-white/70 group-data-[has-value=true]:text-default-800 font-medium",
 };
 
 const DateInputStyles = {
@@ -38,82 +50,165 @@ const DateInputStyles = {
   inputWrapper:
     "bg-white/20 border-2 border-white data-[hover=true]:bg-white/30 focus-within:bg-white/30",
   input:
-    "text-white placeholder:text-white/70 group-data-[has-value=true]:text-[#3f3f3f]",
+    "text-white placeholder:text-white/70 group-data-[has-value=true]:text-default-800 font-medium",
+  selectorIcon: "text-default-800",
 };
 
-const PreferencesChips = ({
-  variant,
-  value,
+const GenderSelection = ({
+  gender,
+  setGender,
 }: {
-  variant: "gender" | "age";
-  value: string;
+  gender: string;
+  setGender: (gender: string) => void;
 }) => {
-  switch (variant) {
-    case "gender":
-      switch (value) {
-        case "male":
-          return (
-            <Chip
-              color="primary"
-              startContent={<Mars color="white" size={16} />}
-            >
-              Male
-            </Chip>
-          );
-        case "female":
-          return (
-            <Chip
-              color="primary"
-              startContent={<Venus color="white" size={16} />}
-            >
-              Female
-            </Chip>
-          );
-        default:
-          return (
-            <Chip
-              color="primary"
-              startContent={<VenusAndMars color="white" size={16} />}
-            >
-              Other
-            </Chip>
-          );
-      }
-    case "age":
-      return <Chip color="secondary">Ages {value}</Chip>;
-  }
+  return (
+    <div className="flex flex-col gap-2 w-[300px]">
+      <p className="text-xs text-white/80 font-bold">Gender</p>
+      <div className="flex flex-wrap gap-2">
+        <Chip
+          as="button"
+          color={gender === "Male" ? "primary" : "default"}
+          variant={gender === "Male" ? "shadow" : "flat"}
+          startContent={<Mars color="white" size={16} className="ml-1" />}
+          className="cursor-pointer hover:bg-white/20 transition-colors"
+          onClick={() => setGender(gender === "Male" ? "" : "Male")}
+        >
+          Male
+        </Chip>
+        <Chip
+          as="button"
+          color={gender === "Female" ? "danger" : "default"}
+          variant={gender === "Female" ? "shadow" : "flat"}
+          startContent={<Venus color="white" size={16} className="ml-1" />}
+          className="cursor-pointer hover:bg-white/20 transition-colors"
+          onClick={() => setGender(gender === "Female" ? "" : "Female")}
+        >
+          Female
+        </Chip>
+        <Chip
+          as="button"
+          color={gender === "Other" ? "success" : "default"}
+          variant={gender === "Other" ? "shadow" : "flat"}
+          startContent={
+            <VenusAndMars color="white" size={16} className="ml-1" />
+          }
+          className="cursor-pointer hover:bg-white/20 transition-colors"
+          onClick={() => setGender(gender === "Other" ? "" : "Other")}
+        >
+          Other
+        </Chip>
+      </div>
+    </div>
+  );
 };
 
+const AgeRangeSelection = ({
+  age,
+  setAge,
+}: {
+  age: [number, number];
+  setAge: (age: [number, number]) => void;
+}) => {
+  return (
+    <div className="flex flex-col gap-2 w-[300px]">
+      <p className="text-xs text-white/80 font-bold">Age Range</p>
+      <div className="flex flex-wrap gap-2">
+        {[
+          { label: "18-25", range: [18, 25] },
+          { label: "26-30", range: [26, 30] },
+          { label: "31-35", range: [31, 35] },
+          { label: "36-40", range: [36, 40] },
+          { label: "41-45", range: [41, 45] },
+          { label: "46+", range: [46, 60] },
+        ].map((bracket) => {
+          const isSelected =
+            age[0] === bracket.range[0] && age[1] === bracket.range[1];
+          return (
+            <Chip
+              key={bracket.label}
+              as="button"
+              color={isSelected ? "secondary" : "default"}
+              variant={isSelected ? "shadow" : "flat"}
+              className="cursor-pointer hover:bg-white/20 transition-colors"
+              onClick={() => setAge(bracket.range as [number, number])}
+            >
+              {bracket.label}
+            </Chip>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+// TODO: card variant should be dynamic based one media query
 export const ProfilePage = () => {
   const { selectedTab } = useTopBarTab();
   const { logout, token } = useAuth();
+  const { data, error, isLoading } = useSWR<Profile>("/api/users/my-profile");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const [name, setName] = useState("");
+  const [gender, setGender] = useState("");
+  const [location, setLocation] = useState("");
+  const [bio, setBio] = useState("");
+  const [birthday, setBirthday] = useState(new CalendarDate(1990, 1, 1));
+  const [prefGender, setPrefGender] = useState("");
+  const [prefAge, setPrefAge] = useState<[number, number]>([28, 35]);
+
+  useEffect(() => {
+    setName(data?.name || "");
+    setGender(data?.gender || "");
+    setLocation(data?.location || "");
+    setBio(data?.bio || "");
+    setBirthday(parseDate(data?.birthday || "1990-01-01"));
+    setPrefGender(data?.preferences.gender || "");
+    setPrefAge(data?.preferences.age || [28, 35]);
+  }, [data]);
+
+  if (error) return <div>Error: {error.message}</div>;
+  if (isLoading) return <div>Loading...</div>;
+  if (!data) return <div>No data</div>;
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const data = Object.fromEntries(formData);
-    console.log(data);
-  };
 
-  const handleLogout = () => {
-    console.log(token);
-    logout();
-    console.log(token);
-    // navigate("/login");
+    const profileData = {
+      name: name,
+      age: calculateAge(birthday),
+      gender: gender,
+      location: location,
+      bio: bio,
+      birthday: birthday.toString(),
+      preferences: { gender: prefGender, age: prefAge },
+    };
+
+    const response = await fetch(`${API_URL}/api/users/edit-profile`, {
+      method: "PUT",
+      body: JSON.stringify(profileData),
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to update profile");
+    }
+    const updatedData = await response.json();
+    console.log("Updated profile data:", updatedData);
   };
 
   if (selectedTab === "profile") {
     return (
       <div className="grid grid-cols-1 justify-items-center h-full w-full pt-4 md:pb-22 pb-28 px-4">
         <ProfileCard
-          picture={profile.picture}
+          picture={data.picture}
           className="md:max-h-[calc(100dvh-300px)] max-h-[calc(100dvh-300px)] min-h-0 aspect-2/3 max-w-full"
-          name={profile.name}
-          age={profile.age}
-          location={profile.location}
-          bio={profile.bio}
-          birthday={profile.birthday}
-          preferences={profile.preferences}
+          name={data.name}
+          location={data.location}
+          bio={data.bio}
+          birthday={data.birthday}
+          preferences={data.preferences}
           variant="default"
           isMain
         />
@@ -123,7 +218,7 @@ export const ProfilePage = () => {
           color="danger"
           className="text-white h-10 shrink-0"
           startContent={<LogOut color="white" />}
-          onPress={handleLogout}
+          onPress={() => logout()}
           radius="full"
         >
           Logout
@@ -135,14 +230,13 @@ export const ProfilePage = () => {
   return (
     <div className="md:grid md:grid-cols-2 md:items-start flex flex-col items-center h-full w-full pt-4 pb-20 px-4 gap-8 overflow-y-auto md:overflow-y-hidden">
       <ProfileCard
-        picture={profile.picture}
+        picture={data.picture}
         className="min-h-0 max-h-[300px] md:max-h-[calc(100dvh-240px)] w-fit aspect-2/3 md:justify-self-end shrink-0"
-        name={profile.name}
-        age={profile.age}
-        location={profile.location}
-        bio={profile.bio}
-        birthday={profile.birthday}
-        preferences={profile.preferences}
+        name={name}
+        location={location}
+        bio={bio}
+        birthday={birthday.toString()}
+        preferences={{ gender: prefGender, age: prefAge }}
         variant="small"
         isMain
       />
@@ -151,72 +245,87 @@ export const ProfilePage = () => {
         className="flex flex-col gap-4 min-h-0 md:max-h-[calc(100dvh-240px)] w-fit md:overflow-y-auto md:justify-self-start md:h-full pr-4 pb-10 shrink-0"
       >
         <Input
+          isRequired
           type="text"
           placeholder="Name"
           label="Name"
           labelPlacement="outside"
           className="w-[200px]"
           classNames={InputStyles}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
-        <Input
-          type="text"
-          placeholder="Gender"
+        <Select
+          isRequired
+          items={[
+            { label: "Male", key: "Male" },
+            { label: "Female", key: "Female" },
+          ]}
+          selectedKeys={gender ? [gender] : []}
+          onSelectionChange={(keys) => {
+            const selectedKey = Array.from(keys)[0] as string;
+            setGender(selectedKey || "");
+          }}
           label="Gender"
           labelPlacement="outside"
           className="w-[200px]"
-          classNames={InputStyles}
-        />
+          classNames={SelectStyles}
+        >
+          <SelectItem key="Male">Male</SelectItem>
+          <SelectItem key="Female">Female</SelectItem>
+        </Select>
         <Input
+          isRequired
           type="text"
           placeholder="Location"
           label="Location"
           labelPlacement="outside"
           className="w-[200px]"
           classNames={InputStyles}
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
         />
         <Textarea
+          isRequired
           placeholder="Bio"
           label="Bio"
           className="w-[300px]"
           labelPlacement="outside"
           classNames={InputStyles}
+          value={bio}
+          onValueChange={(value) => setBio(value)}
         />
-        <DateInput
-          placeholderValue={new CalendarDate(1990, 1, 1)}
+        <DatePicker
+          isRequired
+          value={birthday}
+          onChange={(date) => setBirthday(date || new CalendarDate(1990, 1, 1))}
           label="Birthday"
           labelPlacement="outside"
           className="w-[200px]"
           classNames={DateInputStyles}
         />
         <p className="text-sm font-bold text-white">Looking For</p>
-        <div className="flex flex-wrap gap-2">
-          <PreferencesChips
-            variant="gender"
-            value={profile.preferences.gender}
-          />
-          <PreferencesChips
-            variant="age"
-            value={
-              profile.preferences.age[0].toString() +
-              "-" +
-              profile.preferences.age[1].toString()
-            }
-          />
-        </div>
+        <GenderSelection gender={prefGender} setGender={setPrefGender} />
+        <AgeRangeSelection age={prefAge} setAge={setPrefAge} />
+
         <Button
           type="button"
-          size="md"
-          className="text-[#3f3f3f] h-10 shrink-0"
-          startContent={<ImageIcon color="#3f3f3f" />}
+          size="sm"
+          color="primary"
+          variant="solid"
+          className="shrink-0"
+          startContent={<ImageIcon size={20} />}
           radius="full"
         >
           Change Profile Picture
         </Button>
         <Button
           type="submit"
-          size="md"
-          className="text-[#3f3f3f] mt-8 h-10 shrink-0"
-          startContent={<Save color="#3f3f3f" />}
+          size="sm"
+          color="default"
+          variant="shadow"
+          className="mt-8 shrink-0"
+          startContent={<Save size={20} />}
           radius="full"
         >
           Save Changes

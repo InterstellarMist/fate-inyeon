@@ -1,0 +1,773 @@
+[{
+  "_id": {
+    "$oid": "6901d024c96e43652699377e"
+  },
+  "accountId": {
+    "$oid": "6901324e3abb03235ab656e1"
+  },
+  "name": "Gaeul (거을)",
+  "age": 23,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "bio": "“Introvert with extrovert hobbies. Let’s go for long walks and talk about everything and nothing.”",
+  "birthday": "2002-09-24",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      23,
+      33
+    ]
+  },
+  "likes": [],
+  "picture": "/profiles/gaeul-ive.jpg",
+  "dislikes": []
+},
+{
+  "_id": {
+    "$oid": "6901d06c8ad9916ba8b6a0b7"
+  },
+  "accountId": {
+    "$oid": "6901c14fc96e43652699377d"
+  },
+  "name": "NEW USER",
+  "age": 23,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "bio": "“Introvert with extrovert hobbies. Let’s go for long walks and talk about everything and nothing.”",
+  "birthday": "2002-09-24",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      23,
+      33
+    ]
+  },
+  "picture": "/profiles/gaeul-ive.jpg",
+  "likes": []
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acad4"
+  },
+  "accountId": {
+    "$oid": "6903b92bea4070603a9acafa"
+  },
+  "name": "Eunha (은하)",
+  "birthday": "1997-05-30",
+  "age": 28,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/eunha-viviz.jpg",
+  "bio": "Soft heart, sharp wit. I love rainy days, cozy playlists, and people who make time slow down.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      23,
+      33
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acad5"
+  },
+  "accountId": {
+    "$oid": "6903b932ea4070603a9acafc"
+  },
+  "name": "SinB (신비)",
+  "birthday": "1998-06-03",
+  "age": 27,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/sinb-viviz.jpg",
+  "bio": "I look chill, but my friends say I’m secretly the chaos. Coffee before conversation.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      22,
+      32
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acad6"
+  },
+  "accountId": {
+    "$oid": "6903b93fea4070603a9acafe"
+  },
+  "name": "Umji (엄지)",
+  "birthday": "1998-08-19",
+  "age": 27,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/umij-viviz.jpeg",
+  "bio": "Lover of books, brunch, and bad puns. I think laughter is the most underrated love language.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      22,
+      32
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acad7"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acad7"
+  },
+  "name": "An Yu-jin (안유진)",
+  "birthday": "2003-09-01",
+  "age": 22,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/yujin-ive.jpeg",
+  "bio": "Can’t start the day without music and iced Americano. Looking for someone to match my energy (or at least pretend to).",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      17,
+      27
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acad8"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acad8"
+  },
+  "name": "Gaeul (거을)",
+  "birthday": "2002-09-24",
+  "age": 23,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/gaeul-ive.jpg",
+  "bio": "Introvert with extrovert hobbies. Let’s go for long walks and talk about everything and nothing.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      18,
+      28
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acad9"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acad9"
+  },
+  "name": "Rei (레이)",
+  "birthday": "2004-02-03",
+  "age": 21,
+  "gender": "Female",
+  "location": "Nagoya, Japan",
+  "picture": "/profiles/rei-ive.jpeg",
+  "bio": "Half soft, half sunshine ☀️. I bake when I’m happy, and laugh when I shouldn’t.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      16,
+      26
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acada"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acada"
+  },
+  "name": "Jang Won-young (장원영)",
+  "birthday": "2004-08-31",
+  "age": 21,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/wonyoung-ive.jpeg",
+  "bio": "I like people who dream big and smile often. Bonus points if you can make me laugh first.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      16,
+      26
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acadb"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acadb"
+  },
+  "name": "Liz (리즈)",
+  "birthday": "2004-11-21",
+  "age": 20,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/liz-ive.jpg",
+  "bio": "I’m quiet until you get to know me, then it’s endless jokes and late-night talks.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      15,
+      25
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acadc"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acadc"
+  },
+  "name": "Leeseo (이서)",
+  "birthday": "2007-02-21",
+  "age": 18,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/leeseo-ive.jpg",
+  "bio": "I find joy in little things — sunsets, playlists, and people who notice details.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      13,
+      23
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acadd"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acadd"
+  },
+  "name": "Chodan (쵸단)",
+  "birthday": "1998-11-01",
+  "age": 26,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/chodan-qwer.jpeg",
+  "bio": "Bright, curious, and occasionally too honest. Let’s skip small talk and go straight to the good stuff.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      21,
+      31
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acade"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acade"
+  },
+  "name": "Magenta (마젠타)",
+  "birthday": "1997-06-02",
+  "age": 28,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/magenta-qwer.jpg",
+  "bio": "I live in color — music, art, random adventures. Tell me your weirdest dream.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      23,
+      33
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acadf"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acadf"
+  },
+  "name": "Lee Si-yeon (이시연)",
+  "birthday": "2000-05-16",
+  "age": 25,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/siyeon-qwer.jpg",
+  "bio": "Ambivert alert 🚨. I’ll either be the calmest or loudest person in the room — no in between.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      20,
+      30
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae0"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae0"
+  },
+  "name": "Hina (히나)",
+  "birthday": "2001-01-30",
+  "age": 24,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/hina-qwer.jpg",
+  "bio": "Optimist at heart 💐. I believe good vibes are contagious, so I try to spread them.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      19,
+      29
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae1"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae1"
+  },
+  "name": "IU (아이유)",
+  "birthday": "1993-05-16",
+  "age": 32,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/iu.webp",
+  "bio": "Old soul with a young heart. I write, I listen, I wander — mostly looking for good stories.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      27,
+      37
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae2"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae2"
+  },
+  "name": "Jihyo (지효)",
+  "birthday": "1997-02-01",
+  "age": 28,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/jihyo-twice.jpg",
+  "bio": "Driven but soft. I work hard, love deeply, and always finish what I start.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      23,
+      33
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae3"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae3"
+  },
+  "name": "Nayeon (나연)",
+  "birthday": "1995-09-22",
+  "age": 30,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/nayeon-twice.webp",
+  "bio": "Playful energy, serious foodie 🍜. If we vibe, expect spontaneous plans and too much laughter.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      25,
+      35
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae4"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae4"
+  },
+  "name": "Jeongyeon (정연)",
+  "birthday": "1996-11-01",
+  "age": 28,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/jeonyeon-twice.jpg",
+  "bio": "Straightforward and sincere. I’m into real connections, not perfect ones.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      23,
+      33
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae5"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae5"
+  },
+  "name": "Momo (모모)",
+  "birthday": "1996-11-09",
+  "age": 28,
+  "gender": "Female",
+  "location": "Kyoto, Japan",
+  "picture": "/profiles/momo-twice.webp",
+  "bio": "I dance, I snack, I repeat 🥟. I laugh at my own jokes — someone has to.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      23,
+      33
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae6"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae6"
+  },
+  "name": "Sana (사나)",
+  "birthday": "1996-12-29",
+  "age": 28,
+  "gender": "Female",
+  "location": "Osaka, Japan",
+  "picture": "/profiles/sana-twice.webp",
+  "bio": "Flirty by nature, kind by choice. Let’s see if our chemistry is as good as my cooking.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      23,
+      33
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae7"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae7"
+  },
+  "name": "Mina (미나)",
+  "birthday": "1997-03-24",
+  "age": 28,
+  "gender": "Female",
+  "location": "Kobe, Japan",
+  "picture": "/profiles/mina-twice.jpg",
+  "bio": "Graceful chaos in disguise. I love quiet corners, art museums, and honest conversations.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      23,
+      33
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae8"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae8"
+  },
+  "name": "Dahyun (다현)",
+  "birthday": "1998-05-28",
+  "age": 27,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/dahyun-twice.jpg",
+  "bio": "Sunshine with a dash of sarcasm 🌤️. If you can make me laugh, I’m probably already interested.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      22,
+      32
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acae9"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acae9"
+  },
+  "name": "Chaeyoung (채영)",
+  "birthday": "1999-04-23",
+  "age": 26,
+  "gender": "Female",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/chaeyoung-twice.webp",
+  "bio": "Artist at heart, rebel in practice. Let’s draw our own story.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      21,
+      31
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaea"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acaea"
+  },
+  "name": "Tzuyu (쯔위)",
+  "birthday": "1999-06-14",
+  "age": 26,
+  "gender": "Female",
+  "location": "Tainan, Taiwan",
+  "picture": "/profiles/tzuyu-twice.webp",
+  "bio": "I believe less is more — but I’ll still say yes to dessert 🍰.",
+  "preferences": {
+    "gender": "Male",
+    "age": [
+      21,
+      31
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaeb"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acaeb"
+  },
+  "name": "S.Coups (에스쿱스)",
+  "birthday": "1995-08-08",
+  "age": 30,
+  "gender": "Male",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/s-coups-seventeen.jpg",
+  "bio": "Leader energy, soft heart. I’ll take care of you, but also challenge you to grow.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      25,
+      35
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaec"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acaec"
+  },
+  "name": "Joshua (조슈아)",
+  "birthday": "1995-12-30",
+  "age": 29,
+  "gender": "Male",
+  "location": "California, United States",
+  "picture": "/profiles/joshua-seventeen.jpg",
+  "bio": "Gentle charm, guitar in hand 🎸. I value kindness more than anything.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      24,
+      34
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaed"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acaed"
+  },
+  "name": "Jun (준)",
+  "birthday": "1996-06-10",
+  "age": 29,
+  "gender": "Male",
+  "location": "Guangdong, China",
+  "picture": "/profiles/jun-seventeen.jpg",
+  "bio": "I’m here for good food, good people, and genuine smiles.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      24,
+      34
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaee"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acaee"
+  },
+  "name": "DK / Dokyeom (도겸)",
+  "birthday": "1997-02-18",
+  "age": 28,
+  "gender": "Male",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/dk-seventeen.jpg",
+  "bio": "Loud laugh, louder heart. I’ll probably sing in the car — sorry, not sorry.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      23,
+      33
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaef"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acaef"
+  },
+  "name": "Mingyu (민규)",
+  "birthday": "1997-04-06",
+  "age": 28,
+  "gender": "Male",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/mingyu-seventeen.jpg",
+  "bio": "Tall, clumsy, but trying my best 😅. I fix things — sometimes even emotions.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      23,
+      33
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaf0"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acaf0"
+  },
+  "name": "The8 (디에잇)",
+  "birthday": "1997-11-07",
+  "age": 27,
+  "gender": "Male",
+  "location": "Liaoning, China",
+  "picture": "/profiles/the8-seventeen.jpg",
+  "bio": "Minimalist thinker, maximalist dreamer. I love balance — in art, in life, in love.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      22,
+      32
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaf1"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acaf1"
+  },
+  "name": "Seungkwan (승관)",
+  "birthday": "1998-01-16",
+  "age": 27,
+  "gender": "Male",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/seungkwan-seventeen.jpg",
+  "bio": "I talk a lot, but I listen better. I’ll remember the small things about you.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      22,
+      32
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaf2"
+  },
+  "accountId": {
+    "$oid": "6903b8f2ea4070603a9acaf7"
+  },
+  "name": "Vernon (버논)",
+  "birthday": "1998-02-18",
+  "age": 27,
+  "gender": "Male",
+  "location": "New York, United States",
+  "picture": "/profiles/vernon-seventeen.jpg",
+  "bio": "Quiet confidence. I like people who think deeply but don’t take life too seriously.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      22,
+      32
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaf3"
+  },
+  "accountId": {
+    "$oid": "6903b904ea4070603a9acaf8"
+  },
+  "name": "Dino (디노)",
+  "birthday": "1999-02-11",
+  "age": 26,
+  "gender": "Male",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/dino-seventeen.jpg",
+  "bio": "Work hard, dance harder 💃. Life’s too short to not give it your all.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      21,
+      31
+    ]
+  }
+},
+{
+  "_id": {
+    "$oid": "6903ad1fea4070603a9acaf4"
+  },
+  "accountId": {
+    "$oid": "6903ad1fea4070603a9acaf4"
+  },
+  "name": "Jeonghan (정한)",
+  "birthday": "1995-10-04",
+  "age": 30,
+  "gender": "Male",
+  "location": "Seoul, South Korea",
+  "picture": "/profiles/jeonghan-seventeen.jpg",
+  "bio": "Angel on stage, professional teaser off it 😇. I like quiet coffee shops, spontaneous trips, and finding peace in chaos.",
+  "preferences": {
+    "gender": "Female",
+    "age": [
+      25,
+      35
+    ]
+  }
+}]

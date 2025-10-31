@@ -1,8 +1,64 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router";
-import { Input, Button, Card, CardBody } from "@heroui/react";
+import { Button, Card, CardBody, Input } from "@heroui/react";
 import { useAuth } from "../contexts/AuthContext";
 import { WebsiteLogo } from "../components/TopBar";
+
+export const SignupForm = ({
+  handleSubmit,
+  email,
+  setEmail,
+  password,
+  setPassword,
+  error,
+  isLoading,
+}: {
+  handleSubmit: (e: React.FormEvent) => void;
+  email: string;
+  setEmail: (email: string) => void;
+  password: string;
+  setPassword: (password: string) => void;
+  error: string;
+  isLoading: boolean;
+}) => {
+  return (
+    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+      <Input
+        isRequired
+        pattern="^[^\s@]+@[^\s@]+\.[^\s@]+$"
+        description="Please enter a valid email address"
+        label="Email"
+        type="email"
+        placeholder="Enter your email"
+        value={email}
+        onValueChange={setEmail}
+        variant="bordered"
+      />
+      <Input
+        isRequired
+        minLength={8}
+        label="Password"
+        type="password"
+        placeholder="Enter your password"
+        description={"Password must be at least 8 characters long"}
+        value={password}
+        onValueChange={setPassword}
+        variant="bordered"
+      />
+
+      {error && <div className="text-danger text-sm text-center">{error}</div>}
+
+      <Button
+        type="submit"
+        color="primary"
+        isLoading={isLoading}
+        className="w-full"
+      >
+        Sign Up
+      </Button>
+    </form>
+  );
+};
 
 export const SignupPage = () => {
   const [email, setEmail] = useState("");
@@ -62,39 +118,15 @@ export const SignupPage = () => {
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <Input
-                label="Email"
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onValueChange={setEmail}
-                isRequired
-                variant="bordered"
-              />
-              <Input
-                label="Password"
-                type="password"
-                placeholder="Enter your password"
-                value={password}
-                onValueChange={setPassword}
-                isRequired
-                variant="bordered"
-              />
-
-              {error && (
-                <div className="text-danger text-sm text-center">{error}</div>
-              )}
-
-              <Button
-                type="submit"
-                color="primary"
-                isLoading={isLoading}
-                className="w-full"
-              >
-                Sign Up
-              </Button>
-            </form>
+            <SignupForm
+              handleSubmit={handleSubmit}
+              email={email}
+              setEmail={setEmail}
+              password={password}
+              setPassword={setPassword}
+              error={error}
+              isLoading={isLoading}
+            />
 
             <div className="text-center text-sm mt-4">
               <span className="text-default-500">
